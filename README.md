@@ -13,3 +13,13 @@ npm run deploy
 ```
 
 No service-role or secret database key is stored in this repository. The browser uses only the Supabase publishable key; access to clinic data remains protected by Supabase Auth and Row Level Security.
+
+## Repository status
+
+This repository currently contains the production build artifacts, not the original React/Vite application source. Do not make substantial product changes by editing the minified files in `dist/assets`.
+
+- Production audit: [`docs/CURRENT_SYSTEM_AUDIT_2026-09-01.md`](docs/CURRENT_SYSTEM_AUDIT_2026-09-01.md)
+- Master product requirements: [`docs/MASTER_PRODUCT_REQUIREMENTS.md`](docs/MASTER_PRODUCT_REQUIREMENTS.md)
+- Database migrations: [`supabase/migrations`](supabase/migrations)
+
+Before the next frontend feature, recover the exact source project that generated the current bundle or reconstruct a maintainable source tree and prove visual/data compatibility with production. Keep each clinic deployment and Supabase project independent; this is a reusable single-clinic product, not a shared multi-tenant SaaS.
