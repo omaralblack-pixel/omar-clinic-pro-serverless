@@ -48,3 +48,29 @@ export async function createQuickBooking(values) {
   if (error) throw error;
   return data?.[0] || null;
 }
+
+export async function loadAppointmentsRange({ from, to }) {
+  const client = requireSupabase();
+  const { data, error } = await client
+    .from("casanova_appointments")
+    .select("*,patient:casanova_patients(id,file_no,full_name,phone),service:casanova_services(id,name)")
+    .gte("starts_at", from)
+    .lt("starts_at", to)
+    .order("starts_at", { ascending: true });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function updateAppointment(appointmentId, values) {
+  const client = requireSupabase();
+  const { data, error } = await client
+    .from("casanova_appointments")
+    .update(values)
+    .eq("id", appointmentId)
+    .select("*,patient:casanova_patients(id,file_no,full_name,phone),service:casanova_services(id,name)")
+    .single();
+
+  if (error) throw error;
+  return data;
+}

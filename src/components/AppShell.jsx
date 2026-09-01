@@ -4,6 +4,7 @@ import { clinicConfig } from "../config/clinic";
 import { loadBookingOptions } from "../lib/clinic-data";
 import { requireSupabase } from "../lib/supabase";
 import { QuickBookingModal } from "./QuickBookingModal";
+import { AppointmentsPage } from "./AppointmentsPage";
 
 const navigation = [
   ["dashboard", "الرئيسية", Gauge],
@@ -26,6 +27,7 @@ export function AppShell({ user, onLogout }) {
   const [patients, setPatients] = useState([]);
   const [services, setServices] = useState([]);
   const [loadError, setLoadError] = useState("");
+  const [appointmentRefreshKey, setAppointmentRefreshKey] = useState(0);
 
   async function refreshOptions() {
     try {
@@ -60,11 +62,13 @@ export function AppShell({ user, onLogout }) {
         <header className="topbar"><div className="topbar-title"><button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="فتح القائمة"><Menu size={21} /></button><div><small>أهلًا وسهلًا بكم في {clinicConfig.name}</small><h1>{title}</h1></div></div><div className="topbar-actions"><button className="primary-button" onClick={() => setBookingOpen(true)}><CalendarPlus size={17} />حجز سريع</button><button className="secondary-button"><MessageCircleMore size={17} />تواصل</button><span className="connection-state">● النظام متصل وآمن</span></div></header>
         <main className="page-content">
           {loadError && <div className="error-box">{loadError}</div>}
-          {active === "dashboard" ? <DashboardCheckpoint patients={patients} services={services} onBook={() => setBookingOpen(true)} /> : <ReconstructionCheckpoint title={title} onBook={() => setBookingOpen(true)} />}
+          {active === "dashboard" && <DashboardCheckpoint patients={patients} services={services} onBook={() => setBookingOpen(true)} />}
+          {active === "appointments" && <AppointmentsPage services={services} onBook={() => setBookingOpen(true)} refreshKey={appointmentRefreshKey} onChanged={() => setAppointmentRefreshKey((value) => value + 1)} />}
+          {active !== "dashboard" && active !== "appointments" && <ReconstructionCheckpoint title={title} onBook={() => setBookingOpen(true)} />}
         </main>
       </div>
 
-      <QuickBookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} patients={patients} services={services} onSaved={() => refreshOptions()} />
+      <QuickBookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} patients={patients} services={services} onSaved={() => { refreshOptions(); setAppointmentRefreshKey((value) => value + 1); }} />
     </div>
   );
 }

@@ -10,6 +10,7 @@ The production bundle has no original React/Vite source in GitHub. This checkpoi
 - Branded RTL login matching the current production structure.
 - Clinic-specific branding, contact, currency, timezone, Supabase URL, publishable key, and admin email moved to environment configuration.
 - Existing 11-section application navigation shell reconstructed.
+- Daily/weekly appointment calendar with service/status filters, eight status colors, quick editing, cancellation/no-show/delay details, conflict validation, and drag/drop rescheduling.
 - Auth sessions restricted to the configured clinic admin email.
 - Patient/service option loading through authenticated Supabase RLS.
 - New Quick Booking modal with:
@@ -32,11 +33,10 @@ The production bundle has no original React/Vite source in GitHub. This checkpoi
 1. Dashboard metrics and upcoming appointments.
 2. Patient list, create/edit, and patient dashboard.
 3. Activities and follow-ups.
-4. Appointment day/week calendar and status workflow.
-5. Laser sessions and packages.
-6. Finance, inventory, and services management.
-7. Reports and settings.
-8. Authenticated browser regression tests using a dedicated non-production test account or an approved clinic login session.
+4. Laser sessions and packages.
+5. Finance, inventory, and services management.
+6. Reports and settings.
+7. Authenticated browser regression tests using a dedicated non-production test account or an approved clinic login session.
 
 ## Build verification
 
