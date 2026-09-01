@@ -3,10 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "dev": "vite",
+    "build:source": "vite build",
+    "preview:source": "vite preview",
     "check": "wrangler deploy --dry-run --config ./wrangler.jsonc",
     "deploy": "wrangler deploy --config ./wrangler.jsonc"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "6.1.1",
+    "vite": "8.2.2",
     "wrangler": "4.92.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.112.4",
+    "lucide-react": "1.38.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   }
 }

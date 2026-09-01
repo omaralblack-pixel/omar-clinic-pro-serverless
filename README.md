@@ -21,5 +21,17 @@ This repository currently contains the production build artifacts, not the origi
 - Production audit: [`docs/CURRENT_SYSTEM_AUDIT_2026-09-01.md`](docs/CURRENT_SYSTEM_AUDIT_2026-09-01.md)
 - Master product requirements: [`docs/MASTER_PRODUCT_REQUIREMENTS.md`](docs/MASTER_PRODUCT_REQUIREMENTS.md)
 - Database migrations: [`supabase/migrations`](supabase/migrations)
+- Reconstructed React/Vite source: [`src`](src)
+- Source recovery status: [`docs/SOURCE_RECONSTRUCTION.md`](docs/SOURCE_RECONSTRUCTION.md)
 
 Before the next frontend feature, recover the exact source project that generated the current bundle or reconstruct a maintainable source tree and prove visual/data compatibility with production. Keep each clinic deployment and Supabase project independent; this is a reusable single-clinic product, not a shared multi-tenant SaaS.
+
+## Reconstructed source checkpoint
+
+The new source builds into `build/reconstructed` and therefore cannot overwrite the live `dist` directory. Configure it from `.env.example`, then run:
+
+```bash
+npm run build:source
+```
+
+The current checkpoint restores the branded login, application shell, reusable clinic configuration, and the new Quick Booking workflow. It is intentionally not the Cloudflare deployment target until the remaining production screens have reached parity.
