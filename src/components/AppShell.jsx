@@ -8,6 +8,7 @@ import { AppointmentsPage } from "./AppointmentsPage";
 import { GlobalSearch } from "./GlobalSearch";
 import { PatientsPage } from "./PatientsPage";
 import { loadPatientDirectory } from "../lib/patients";
+import { DashboardPage } from "./DashboardPage";
 
 const navigation = [
   ["dashboard", "الرئيسية", Gauge],
@@ -80,7 +81,7 @@ export function AppShell({ user, onLogout }) {
         <header className="topbar"><div className="topbar-title"><button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="فتح القائمة"><Menu size={21} /></button><div><small>أهلًا وسهلًا بكم في {clinicConfig.name}</small><h1>{title}</h1></div></div><GlobalSearch patients={patientDirectory} onSelect={openPatient} /><div className="topbar-actions"><button className="primary-button" onClick={() => openBooking()}><CalendarPlus size={17} />حجز سريع</button><button className="secondary-button"><MessageCircleMore size={17} />تواصل</button><span className="connection-state">● النظام متصل وآمن</span></div></header>
         <main className="page-content">
           {loadError && <div className="error-box">{loadError}</div>}
-          {active === "dashboard" && <DashboardCheckpoint patients={patients} services={services} onBook={() => openBooking()} />}
+          {active === "dashboard" && <DashboardPage patientDirectory={patientDirectory} refreshKey={appointmentRefreshKey} onBook={openBooking} onOpenAppointments={() => setActive("appointments")} onOpenPatient={openPatient} />}
           {active === "patients" && <PatientsPage patients={patientDirectory} selectedPatientId={selectedPatientId} onSelect={setSelectedPatientId} onBook={openBooking} onChanged={refreshOptions} />}
           {active === "appointments" && <AppointmentsPage services={services} onBook={() => openBooking()} refreshKey={appointmentRefreshKey} onChanged={() => setAppointmentRefreshKey((value) => value + 1)} />}
           {active !== "dashboard" && active !== "patients" && active !== "appointments" && <ReconstructionCheckpoint title={title} onBook={() => openBooking()} />}
@@ -90,10 +91,6 @@ export function AppShell({ user, onLogout }) {
       <QuickBookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} patients={patients} services={services} initialPatientId={bookingPatientId} onSaved={() => { refreshOptions(); setAppointmentRefreshKey((value) => value + 1); }} />
     </div>
   );
-}
-
-function DashboardCheckpoint({ patients, services, onBook }) {
-  return <div className="dashboard-checkpoint"><section className="welcome-card"><div><small>نسخة المصدر الجديدة</small><h2>استعادة آمنة وقابلة للتطوير</h2><p>تم ربط تسجيل الدخول وخيارات المرضى والخدمات، وتجهيز الحجز السريع الجديد بدون تغيير نسخة Production الحالية.</p></div><button className="primary-button" onClick={onBook}><CalendarPlus size={18} />إنشاء موعد</button></section><div className="metric-grid"><article><span>ملفات المرضى المحملة</span><strong>{patients.length}</strong></article><article><span>الخدمات المتاحة</span><strong>{services.length}</strong></article><article><span>Quick Booking</span><strong className="ready">جاهز</strong></article><article><span>Production</span><strong className="safe">لم يتغير</strong></article></div></div>;
 }
 
 function ReconstructionCheckpoint({ title, onBook }) {

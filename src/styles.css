@@ -96,6 +96,53 @@ button { cursor: pointer; }
 .empty-checkpoint h2 { color: #3d2030; margin: 0; }
 .empty-checkpoint p { max-width: 570px; line-height: 1.8; }
 
+.dashboard-page { display: grid; gap: 16px; }
+.dashboard-welcome { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 25px 28px; border-radius: 22px; color: white; background: linear-gradient(135deg, #4b2337, #6d3c51); box-shadow: 0 18px 38px #4b233721; }
+.dashboard-welcome small { color: #f1c5b3; font-weight: 800; }
+.dashboard-welcome h2 { margin: 7px 0; font-size: 1.7rem; }
+.dashboard-welcome p { margin: 0; color: #ffffffb9; }
+.dashboard-welcome > div:last-child { display: flex; gap: 8px; }
+.dashboard-welcome .primary-button { background: white; color: #4b2337; }
+.dashboard-welcome .secondary-button { background: #ffffff13; border-color: #ffffff38; color: white; }
+.dashboard-metrics { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.dashboard-metric { display: flex; align-items: flex-start; gap: 12px; min-width: 0; padding: 17px; border: 1px solid #eadfe1; border-radius: 17px; background: white; box-shadow: 0 7px 20px #4b23370a; }
+.dashboard-metric > span { display: grid; place-items: center; width: 39px; height: 39px; flex: 0 0 auto; border-radius: 12px; background: #f3e8eb; color: #74445a; }
+.dashboard-metric > div { min-width: 0; display: grid; gap: 4px; }
+.dashboard-metric small { color: #806b76; font-size: .75rem; }
+.dashboard-metric strong { color: #3d2030; font-size: 1.22rem; white-space: nowrap; }
+.dashboard-metric em { overflow: hidden; color: #9a8690; font-size: .68rem; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+.dashboard-metric.warning > span { background: #fff0f2; color: #a61b39; }
+.dashboard-metric.warning strong { color: #a61b39; }
+.dashboard-columns { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(300px, .8fr); gap: 14px; align-items: start; }
+.dashboard-panel { overflow: hidden; border: 1px solid #eadfe1; border-radius: 18px; background: white; box-shadow: 0 8px 24px #4b23370a; }
+.dashboard-panel > header { display: flex; align-items: center; justify-content: space-between; min-height: 58px; padding: 12px 16px; border-bottom: 1px solid #f0e6e8; background: #fdfafa; }
+.dashboard-panel > header > div { display: flex; align-items: center; gap: 9px; }
+.dashboard-panel h3 { display: flex; align-items: center; gap: 7px; margin: 0; color: #3d2030; font-size: 1rem; }
+.dashboard-panel header span { display: grid; place-items: center; min-width: 25px; min-height: 25px; padding: 0 7px; border-radius: 99px; background: #ede1e5; color: #6d3c51; font-size: .72rem; font-weight: 900; }
+.dashboard-panel header > button { border: 0; background: transparent; color: #7b5365; font-weight: 800; font-size: .76rem; }
+.today-panel { grid-row: span 2; }
+.today-list { display: grid; }
+.today-list > button { display: grid; grid-template-columns: 65px 1fr auto; align-items: center; gap: 10px; min-height: 70px; padding: 10px 16px; border: 0; border-bottom: 1px solid #f2e9eb; background: white; color: #3d2030; text-align: right; }
+.today-list > button:hover { background: #fdf9fa; }
+.today-list time { direction: ltr; color: #74445a; font-weight: 900; }
+.today-list span { display: grid; gap: 4px; }
+.today-list small { color: #8a747f; }
+.status-dot { padding: 6px 8px; border-radius: 9px; background: #f1e9ec; color: #715c68; font-size: .68rem; font-style: normal; font-weight: 900; }
+.status-dot.confirmed, .status-dot.arrived { background: #e8f5ff; color: #246690; }
+.status-dot.completed { background: #eaf8f0; color: #16804b; }
+.status-dot.cancelled, .status-dot.no_show { background: #fff0f2; color: #a61b39; }
+.status-dot.delayed { background: #fff8df; color: #9b6500; }
+.followup-list, .alert-list { display: grid; }
+.followup-list article { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-bottom: 1px solid #f2e9eb; }
+.patient-link { flex: 1; min-width: 0; display: grid; gap: 4px; border: 0; background: transparent; color: #3d2030; text-align: right; }
+.patient-link small { overflow: hidden; color: #8a747f; text-overflow: ellipsis; white-space: nowrap; }
+.done-button { display: grid; place-items: center; width: 34px; height: 34px; flex: 0 0 auto; border: 1px solid #cfe5d9; border-radius: 10px; background: #effaf4; color: #16804b; }
+.alert-list > button { display: flex; align-items: flex-start; gap: 9px; padding: 12px 14px; border: 0; border-bottom: 1px solid #f2e9eb; background: white; color: #9f4252; text-align: right; }
+.alert-list > button:hover { background: #fffafb; }
+.alert-list span { display: grid; gap: 4px; color: #3d2030; }
+.alert-list small { color: #8a747f; }
+.empty-line { margin: 0; padding: 28px 16px; color: #8a747f; text-align: center; }
+
 .patient-filter { display: flex; align-items: center; gap: 9px; padding: 0 14px; margin-bottom: 14px; border: 1px solid #eadfe1; border-radius: 14px; background: white; color: #806b76; }
 .patient-filter input { flex: 1; min-height: 46px; border: 0; outline: 0; background: transparent; }
 .patient-filter span { font-size: .8rem; font-weight: 800; white-space: nowrap; }
@@ -223,6 +270,9 @@ button { cursor: pointer; }
   .global-search { width: min(380px, 45vw); }
   .connection-state { display: none; }
   .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dashboard-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dashboard-columns { grid-template-columns: 1fr; }
+  .today-panel { grid-row: auto; }
   .patient-hero { align-items: flex-start; flex-wrap: wrap; }
   .patient-actions { width: 100%; margin: 0; justify-content: flex-start; }
   .patient-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -240,6 +290,12 @@ button { cursor: pointer; }
   .topbar-title small { display: none; }
   .page-content { padding: 18px; }
   .welcome-card { align-items: flex-start; flex-direction: column; padding: 22px; }
+  .dashboard-welcome { align-items: flex-start; flex-direction: column; padding: 21px; }
+  .dashboard-welcome > div:last-child { width: 100%; }
+  .dashboard-welcome > div:last-child > button { flex: 1; }
+  .dashboard-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .today-list > button { grid-template-columns: 55px 1fr; }
+  .today-list .status-dot { grid-column: 2; justify-self: start; }
   .metric-grid, .form-grid, .booking-summary { grid-template-columns: 1fr; }
   .patient-metrics, .detail-grid { grid-template-columns: 1fr; }
   .patient-hero { padding: 18px; }
