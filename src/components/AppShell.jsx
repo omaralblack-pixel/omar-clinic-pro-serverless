@@ -9,6 +9,9 @@ import { GlobalSearch } from "./GlobalSearch";
 import { PatientsPage } from "./PatientsPage";
 import { loadPatientDirectory } from "../lib/patients";
 import { DashboardPage } from "./DashboardPage";
+import { ActivitiesPage } from "./ActivitiesPage";
+import { SessionsPage } from "./SessionsPage";
+import { PackagesPage } from "./PackagesPage";
 
 const navigation = [
   ["dashboard", "الرئيسية", Gauge],
@@ -83,8 +86,11 @@ export function AppShell({ user, onLogout }) {
           {loadError && <div className="error-box">{loadError}</div>}
           {active === "dashboard" && <DashboardPage patientDirectory={patientDirectory} refreshKey={appointmentRefreshKey} onBook={openBooking} onOpenAppointments={() => setActive("appointments")} onOpenPatient={openPatient} />}
           {active === "patients" && <PatientsPage patients={patientDirectory} selectedPatientId={selectedPatientId} onSelect={setSelectedPatientId} onBook={openBooking} onChanged={refreshOptions} />}
+          {active === "activities" && <ActivitiesPage patients={patients} refreshKey={appointmentRefreshKey} onOpenPatient={openPatient} onChanged={() => setAppointmentRefreshKey((value) => value + 1)} />}
           {active === "appointments" && <AppointmentsPage services={services} onBook={() => openBooking()} refreshKey={appointmentRefreshKey} onChanged={() => setAppointmentRefreshKey((value) => value + 1)} />}
-          {active !== "dashboard" && active !== "patients" && active !== "appointments" && <ReconstructionCheckpoint title={title} onBook={() => openBooking()} />}
+          {active === "sessions" && <SessionsPage patients={patients} services={services} refreshKey={appointmentRefreshKey} onOpenPatient={openPatient} onChanged={() => { refreshOptions(); setAppointmentRefreshKey((value) => value + 1); }} />}
+          {active === "packages" && <PackagesPage patients={patients} services={services} refreshKey={appointmentRefreshKey} onOpenPatient={openPatient} onChanged={() => { refreshOptions(); setAppointmentRefreshKey((value) => value + 1); }} />}
+          {!['dashboard', 'patients', 'activities', 'appointments', 'sessions', 'packages'].includes(active) && <ReconstructionCheckpoint title={title} onBook={() => openBooking()} />}
         </main>
       </div>
 
