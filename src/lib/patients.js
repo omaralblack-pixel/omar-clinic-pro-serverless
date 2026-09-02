@@ -107,15 +107,11 @@ export async function createPatientActivity(patientId, summary, followUpAt = nul
 
 export async function createPatientPayment(patientId, values) {
   const client = requireSupabase();
-  const { data, error } = await client.from("casanova_transactions").insert({
-    patient_id: patientId,
-    appointment_id: values.appointmentId || null,
-    kind: "income",
-    category: "payment",
-    amount: Number(values.amount),
-    method: values.method,
-    description: values.description?.trim() || "دفعة من المريضة",
-  }).select("*").single();
+  const { data, error } = await client.rpc("casanova_record_transaction", {
+    p_kind: "income", p_category: "payment", p_amount: Number(values.amount), p_method: values.method,
+    p_description: values.description?.trim() || "دفعة من المريضة", p_occurred_at: new Date().toISOString(),
+    p_patient_id: patientId, p_appointment_id: values.appointmentId || null, p_package_id: null, p_reference: null,
+  });
   if (error) throw error;
   return data;
 }

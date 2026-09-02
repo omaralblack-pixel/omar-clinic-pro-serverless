@@ -12,6 +12,7 @@ import { DashboardPage } from "./DashboardPage";
 import { ActivitiesPage } from "./ActivitiesPage";
 import { SessionsPage } from "./SessionsPage";
 import { PackagesPage } from "./PackagesPage";
+import { FinancePage } from "./FinancePage";
 
 const navigation = [
   ["dashboard", "الرئيسية", Gauge],
@@ -90,7 +91,8 @@ export function AppShell({ user, onLogout }) {
           {active === "appointments" && <AppointmentsPage services={services} onBook={() => openBooking()} refreshKey={appointmentRefreshKey} onChanged={() => setAppointmentRefreshKey((value) => value + 1)} />}
           {active === "sessions" && <SessionsPage patients={patients} services={services} refreshKey={appointmentRefreshKey} onOpenPatient={openPatient} onChanged={() => { refreshOptions(); setAppointmentRefreshKey((value) => value + 1); }} />}
           {active === "packages" && <PackagesPage patients={patients} services={services} refreshKey={appointmentRefreshKey} onOpenPatient={openPatient} onChanged={() => { refreshOptions(); setAppointmentRefreshKey((value) => value + 1); }} />}
-          {!['dashboard', 'patients', 'activities', 'appointments', 'sessions', 'packages'].includes(active) && <ReconstructionCheckpoint title={title} onBook={() => openBooking()} />}
+          {active === "finance" && <FinancePage patients={patients} patientDirectory={patientDirectory} refreshKey={appointmentRefreshKey} onOpenPatient={openPatient} onChanged={() => { refreshOptions(); setAppointmentRefreshKey((value) => value + 1); }} />}
+          {!['dashboard', 'patients', 'activities', 'appointments', 'sessions', 'packages', 'finance'].includes(active) && <ReconstructionCheckpoint title={title} onBook={() => openBooking()} />}
         </main>
       </div>
 

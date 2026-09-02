@@ -16,6 +16,7 @@ export const paymentMethods = [
   ["card", "بطاقة"],
   ["cliq", "CliQ"],
   ["bank_transfer", "حوالة بنكية"],
+  ["transfer", "حوالة"],
   ["other", "أخرى"],
 ];
 
