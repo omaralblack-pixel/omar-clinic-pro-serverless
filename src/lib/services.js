@@ -1,0 +1,3 @@
+import { requireSupabase } from "./supabase";
+export async function loadServices(){const{data,error}=await requireSupabase().from("casanova_services").select("*").order("name");if(error)throw error;return data||[];}
+export async function saveService(values,id=null){const c=requireSupabase();const payload={name:values.name.trim(),category:values.category.trim(),body_area:values.bodyArea||null,price:Number(values.price),duration_minutes:Number(values.durationMinutes),sessions_default:Number(values.sessionsDefault||1),active:values.active};const q=id?c.from("casanova_services").update(payload).eq("id",id):c.from("casanova_services").insert(payload);const{data,error}=await q.select("*").single();if(error)throw error;return data;}

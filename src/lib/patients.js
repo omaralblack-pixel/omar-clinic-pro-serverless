@@ -1,4 +1,5 @@
 import { requireSupabase } from "./supabase";
+import { loadPatientMedia } from "./patient-media";
 
 const inactiveAppointmentStatuses = new Set(["cancelled", "no_show"]);
 
@@ -56,13 +57,14 @@ export async function loadPatientDirectory() {
 
 export async function loadPatientDashboard(patientId) {
   const client = requireSupabase();
-  const [patient, appointments, sessions, packages, transactions, activities] = await Promise.all([
+  const [patient, appointments, sessions, packages, transactions, activities, patientFiles] = await Promise.all([
     client.from("casanova_patients").select("*").eq("id", patientId).single(),
     client.from("casanova_appointments").select("*,service:casanova_services(id,name)").eq("patient_id", patientId).order("starts_at", { ascending: false }),
     client.from("casanova_laser_sessions").select("*,service:casanova_services(id,name)").eq("patient_id", patientId).order("performed_at", { ascending: false }),
     client.from("casanova_packages").select("*,service:casanova_services(id,name)").eq("patient_id", patientId).order("created_at", { ascending: false }),
     client.from("casanova_transactions").select("*").eq("patient_id", patientId).order("occurred_at", { ascending: false }),
     client.from("casanova_patient_activities").select("*").eq("patient_id", patientId).order("occurred_at", { ascending: false }),
+    loadPatientMedia(patientId),
   ]);
 
   for (const result of [patient, appointments, sessions, packages, transactions, activities]) {
@@ -83,6 +85,8 @@ export async function loadPatientDashboard(patientId) {
     packages: packages.data || [],
     transactions: transactions.data || [],
     activities: activities.data || [],
+    patientNotes: patientFiles.notes,
+    media: patientFiles.media,
   };
 }
 
