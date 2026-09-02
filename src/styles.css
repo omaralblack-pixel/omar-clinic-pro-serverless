@@ -407,3 +407,99 @@ button { cursor: pointer; }
   .period-controls { flex-wrap: wrap; }
   .period-controls strong { width: 100%; margin: 5px 0 0; }
 }
+
+/* Final visual system: unified Arabic typography, spacing and controls. */
+:root {
+  --font-ui: "Segoe UI", Tahoma, Arial, sans-serif;
+  --text-xs: .75rem;
+  --text-sm: .84rem;
+  --text-base: .94rem;
+  --text-lg: 1.08rem;
+  --text-xl: 1.35rem;
+  --text-2xl: clamp(1.55rem, 2.4vw, 1.85rem);
+  --line-body: 1.65;
+  font-family: var(--font-ui);
+  font-size: 16px;
+}
+body {
+  color: #34242c;
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: var(--line-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font-family: inherit; letter-spacing: 0; }
+button, label, th, strong, h1, h2, h3, h4 { font-weight: 700; }
+p { line-height: 1.75; }
+small { font-size: var(--text-xs); line-height: 1.55; }
+h1, h2, h3, h4 { line-height: 1.35; }
+
+.page-heading h2 { font-size: var(--text-2xl); }
+.page-heading p { max-width: 760px; font-size: var(--text-sm); line-height: 1.7; }
+.topbar-title h1 { font-size: var(--text-lg); }
+.dashboard-welcome h2, .welcome-card h2 { font-size: clamp(1.45rem, 2.2vw, 1.75rem); }
+.dashboard-welcome p, .welcome-card p { font-size: var(--text-sm); line-height: 1.75; }
+.dashboard-panel h3, .finance-panel h3, .patient-media h3 { font-size: 1rem; }
+
+.primary-button, .secondary-button, .today-button, .view-switch button,
+.mode-switch button, .settings-tabs button, .patient-tabs button {
+  min-height: 42px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.primary-button, .secondary-button { padding: .65rem 1.05rem; }
+button { transition: background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease, transform .18s ease; }
+button:active:not(:disabled) { transform: translateY(1px); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #b98da066;
+  outline-offset: 2px;
+}
+
+.login-card label, .field label { font-size: var(--text-sm); }
+.login-card input, .field input, .field select, .field textarea,
+.operations-toolbar input, .operations-toolbar select, .calendar-filters select,
+.report-range input, .finance-date input {
+  min-height: 44px;
+  font-size: .92rem;
+  line-height: 1.5;
+}
+.field textarea { min-height: 96px; }
+.login-card input:focus, .field input:focus, .field select:focus, .field textarea:focus {
+  border-color: #9d7184;
+  background: #fff;
+  box-shadow: 0 0 0 4px #9d718414;
+}
+
+.sidebar nav button { min-height: 44px; font-size: .88rem; font-weight: 600; }
+.sidebar nav small { font-size: .68rem; }
+.metric-grid span, .dashboard-metric small, .patient-metrics span,
+.operations-metrics span, .finance-panel > header span { font-size: var(--text-xs); }
+.metric-grid strong, .dashboard-metric strong, .operations-metrics strong,
+.cash-summary > strong { font-variant-numeric: tabular-nums; }
+.patient-table th, .report-table th { font-size: var(--text-xs); font-weight: 700; }
+.patient-table td, .report-table td { font-size: var(--text-sm); line-height: 1.6; }
+.activity-content p, .session-card > p, .package-card > p,
+.notification-list p, .patient-media header p { font-size: var(--text-sm); line-height: 1.65; }
+.status-dot, .appointment-card em, .appointment-card b,
+.package-card header em, .sent-state { font-size: .72rem; }
+.appointment-card strong { font-size: .8rem; }
+.appointment-card > span, .calendar-hour { font-size: .74rem; }
+
+.dashboard-panel, .finance-panel, .patient-table-wrap, .calendar-scroll,
+.settings-card, .service-card, .session-card, .package-card,
+.operations-metrics article, .dashboard-metric {
+  border-color: #e8dcdf;
+  box-shadow: 0 8px 24px #4b23370b;
+}
+
+@media (max-width: 680px) {
+  :root { font-size: 15px; }
+  .page-content { padding: 16px; }
+  .page-heading { gap: 12px; }
+  .page-heading h2 { margin-top: 4px; }
+  .primary-button, .secondary-button { min-height: 44px; }
+  .topbar-title h1 { font-size: 1rem; }
+  .dashboard-metric { padding: 14px; }
+  .dashboard-metric strong { font-size: 1.12rem; }
+}
