@@ -17,6 +17,7 @@ import { InventoryPage } from "./InventoryPage";
 import { ServicesPage } from "./ServicesPage";
 import { ReportsPage } from "./ReportsPage";
 import { NotificationsPage } from "./NotificationsPage";
+import { SettingsPage } from "./SettingsPage";
 
 const navigation = [
   ["dashboard", "الرئيسية", Gauge],
@@ -101,7 +102,8 @@ export function AppShell({ user, onLogout }) {
           {active === "services" && <ServicesPage refreshKey={appointmentRefreshKey} onChanged={() => { refreshOptions(); setAppointmentRefreshKey((value) => value + 1); }} />}
           {active === "reports" && <ReportsPage patientDirectory={patientDirectory} refreshKey={appointmentRefreshKey} />}
           {active === "notifications" && <NotificationsPage patients={patients} refreshKey={appointmentRefreshKey} onOpenPatient={openPatient} />}
-          {!['dashboard', 'patients', 'activities', 'notifications', 'appointments', 'sessions', 'packages', 'finance', 'inventory', 'services', 'reports'].includes(active) && <ReconstructionCheckpoint title={title} onBook={() => openBooking()} />}
+          {active === "settings" && <SettingsPage user={user} onChanged={refreshOptions} />}
+          {!['dashboard', 'patients', 'activities', 'notifications', 'appointments', 'sessions', 'packages', 'finance', 'inventory', 'services', 'reports', 'settings'].includes(active) && <ReconstructionCheckpoint title={title} onBook={() => openBooking()} />}
         </main>
       </div>
 
